@@ -121,3 +121,14 @@ jobs:
           echo "   Si necesitas cambiar el proceso de release, editas"
           echo "   UNA sola vez: .github/actions/notify-and-tag/action.yml"
           echo "   y ambos jobs se actualizan automáticamente."
+
+      - name: Ejecutar Action
+        id: release_action         # ← id para referenciar outputs
+        uses: ./.github/actions/notify-and-tag
+        with:
+          version: "1.0.0"
+
+      - name: Mostrar resultados
+        run: |
+          echo "Tag creado: ${{ steps.release_action.outputs.tag_name }}"
+          echo "Notas en: ${{ steps.release_action.outputs.release_notes }}"
